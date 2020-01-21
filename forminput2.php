@@ -8,7 +8,7 @@
   <body>
 
     <h1>Form Input - Demo 2</h1>
-    <p>Demo of how to take form input and pass it to a program - all in a single page</p>
+    <p>Please enter the coordinate of your target:</p>
 
     <?php
        // define variables and set to empty values
@@ -17,7 +17,7 @@
        if ($_SERVER["REQUEST_METHOD"] == "POST") {
          $arg1 = test_input($_POST["arg1"]);
          $arg2 = test_input($_POST["arg2"]);
-        exec("/usr/lib/cgi-bin/sp1a/areaofcircle2 " . $arg1 . " " . $arg2, $output, $retc);
+        exec("/usr/lib/cgi-bin/sp1a/battleship " . $arg1 . " " . $arg2, $output, $retc);
        }
 
        function test_input($data) {
@@ -38,13 +38,13 @@
     <?php
        // only display if return code is numeric - i.e. exec has been called
        if (is_numeric($retc)) {
-         echo "<h2>Your Input:</h2>";
+         echo "<h2>Coordinates:</h2>";
          echo $arg1;
          echo "<br>";
          echo $arg2;
          echo "<br>";
        
-         echo "<h2>Program Output (an array):</h2>";
+         echo "<h2>Board:</h2>";
          foreach ($output as $line) {
            echo $line;
            echo "<br>";
