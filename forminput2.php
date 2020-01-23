@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Form Input 2</title>
+    <title>Battleship</title>
   </head>
 
 
-  <body>
+  <body style="background-color:grey;">
 
-    <h1>Form Input - Demo 2</h1>
+    <h1>Battleship v0.1</h1>
     <p>Please enter the coordinate of your target:</p>
 
     <?php
        // define variables and set to empty values
-       $arg1 = $arg2 = $output = $retc = "";
+       $arg1 = $arg2 = $arg3 = $output = $retc = "";
 
        if ($_SERVER["REQUEST_METHOD"] == "POST") {
          $arg1 = test_input($_POST["arg1"]);
          $arg2 = test_input($_POST["arg2"]);
-        exec("/usr/lib/cgi-bin/sp1a/battleship " . $arg1 . " " . $arg2, $output, $retc);
+         $arg3 = test_input($_POST["arg3"]);
+        exec("/usr/lib/cgi-bin/sp1a/battleship1 " . $arg1 . " " . $arg2 . " " . $arg3, $output, $retc);
        }
 
        function test_input($data) {
@@ -29,8 +30,9 @@
     ?>
 
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-      Arg1: <input type="text" name="arg1"><br>
-      Arg2: <input type="text" name="arg2"><br>
+      Arg1: <input type="text" name="arg1" ><br>
+      Arg2: <input type="text" name="arg2" ><br>
+      State(enter 1 to init, 0 to play): <input type="text" name="arg3" value=0><br>
       <br>
       <input type="submit" value="Go!">
     </form>
@@ -43,12 +45,16 @@
          echo "<br>";
          echo $arg2;
          echo "<br>";
+	 echo $arg3;
+         echo "<br>";
        
          echo "<h2>Board:</h2>";
-         foreach ($output as $line) {
+         
+           foreach ($output as $line) {
            echo $line;
            echo "<br>";
          }
+         
        
          echo "<h2>Program Return Code:</h2>";
          echo $retc;
